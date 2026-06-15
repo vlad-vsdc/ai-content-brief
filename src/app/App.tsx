@@ -1,5 +1,14 @@
 import { useState } from "react";
 import { TopBar } from "../components/TopBar";
+import type { BriefFormValues } from "../types/brief";
+import { BriefForm } from "../components/BriefForm";
+
+const [formValues, setFormValues] = useState<BriefFormValues>({
+  topic: "",
+  audience: "",
+  tone: "professional",
+  keywords: "",
+});
 
 export function App() {
   const [apiKey, setApiKey] = useState("");
@@ -10,7 +19,14 @@ export function App() {
 
       <main className="mx-auto grid max-w-7xl gap-6 px-6 py-8 lg:grid-cols-[420px_1fr]">
         <section className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
-          Form panel
+          <BriefForm
+            values={formValues}
+            isLoading={false}
+            onChange={setFormValues}
+            onSubmit={() => {
+              console.log(formValues);
+            }}
+          />
         </section>
 
         <section className="min-h-[520px] rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
