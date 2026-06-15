@@ -1,17 +1,17 @@
 import { useState } from "react";
+import { BriefForm } from "../components/BriefForm";
 import { TopBar } from "../components/TopBar";
 import type { BriefFormValues } from "../types/brief";
-import { BriefForm } from "../components/BriefForm";
-
-const [formValues, setFormValues] = useState<BriefFormValues>({
-  topic: "",
-  audience: "",
-  tone: "professional",
-  keywords: "",
-});
 
 export function App() {
   const [apiKey, setApiKey] = useState("");
+
+  const [formValues, setFormValues] = useState<BriefFormValues>({
+    topic: "",
+    audience: "",
+    tone: "professional",
+    keywords: "",
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 text-[#e6edf3]">
