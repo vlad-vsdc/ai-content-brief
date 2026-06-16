@@ -1,73 +1,70 @@
-# React + TypeScript + Vite
+# AI Content Brief Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-ready React + TypeScript + Vite app for generating structured SEO content briefs with Claude streaming responses.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Topic, audience, tone, and keyword input
+- Claude API streaming via SSE
+- Manual parsing of `data:` chunks
+- Structured JSON parsing with fallback warning
+- Glassmorphism SaaS UI
+- API key kept only in React state
+- PDF export with jsPDF
+- Loading skeleton and streaming cursor
+- Strict TypeScript architecture
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS v3
+- Claude API
+- jsPDF
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```txt
+src/
+├── app/
+├── components/
+├── hooks/
+├── services/
+├── prompts/
+├── types/
+├── lib/
+└── styles/
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Setup
+npm install
+npm run dev
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Claude API
+The app sends requests directly from the browser to:
+https://api.anthropic.com/v1/messages
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Required browser-access header:
+anthropic-dangerous-direct-browser-access: true
+
+The API key is entered manually in the top bar and stored only in React state.
+
+Output Contract
+
+Claude is instructed to return only valid JSON matching the ContentBrief TypeScript type.
+No markdown.
+No backticks.
+No explanatory text outside JSON.
+
+Limitations
+
+No backend proxy
+No localStorage
+API key is lost after refresh
+JSON shape is parsed but not deeply runtime-validated
+
+Production Notes
+
+For a real public deployment, route Claude requests through a backend or serverless function to avoid exposing API keys in the browser.
