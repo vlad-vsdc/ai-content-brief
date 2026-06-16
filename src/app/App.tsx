@@ -5,6 +5,7 @@ import { TopBar } from "../components/TopBar";
 import { parseContentBrief } from "../lib/parseContentBrief";
 import { streamContentBrief } from "../services/claudeService";
 import { BriefOutput } from "../components/BriefOutput";
+import { StatusBar } from "../components/StatusBar";
 import type { BriefFormValues, ContentBrief } from "../types/brief";
 
 export function App() {
@@ -67,6 +68,16 @@ export function App() {
     }
   };
 
+  const status: "idle" | "loading" | "success" | "warning" | "error" = error
+    ? "error"
+    : parseWarning
+      ? "warning"
+      : isLoading
+        ? "loading"
+        : brief
+          ? "success"
+          : "idle";
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950 text-[#e6edf3]">
       <TopBar apiKey={apiKey} onApiKeyChange={setApiKey} />
@@ -82,6 +93,7 @@ export function App() {
         </section>
 
         <section className="min-h-[520px] rounded-2xl border border-white/10 bg-white/[0.05] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+          <StatusBar status={status} />
           {error ? (
             <div className="rounded-xl border border-red-400/30 bg-red-500/10 p-4 text-sm text-red-100">
               {error}
