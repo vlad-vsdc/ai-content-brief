@@ -15,7 +15,18 @@ type ClaudeContentBlockDelta = {
   };
 };
 
-type ClaudeStreamEvent = ClaudeContentBlockDelta | { type: string };
+type ClaudeStreamEvent =
+  | ClaudeContentBlockDelta
+  | {
+      type:
+        | "message_start"
+        | "content_block_start"
+        | "content_block_stop"
+        | "message_delta"
+        | "message_stop"
+        | "ping"
+        | "error";
+    };
 
 export async function streamContentBrief({
   apiKey,
