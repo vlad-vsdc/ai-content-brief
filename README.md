@@ -68,9 +68,15 @@ npm run build
 
 ## Screenshots
 
+### Empty State
+
 ![Empty state](docs/screenshots/empty-state.png)
 
+### Generating State
+
 ![Generating state](docs/screenshots/generating-state.png)
+
+### Generated Brief
 
 ![Generated brief](docs/screenshots/generated-brief.png)
 
