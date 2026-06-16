@@ -66,6 +66,14 @@ Create a production build:
 npm run build
 ```
 
+## Screenshots
+
+![Empty state](docs/screenshots/empty-state.png)
+
+![Generating state](docs/screenshots/generating-state.png)
+
+![Generated brief](docs/screenshots/generated-brief.png)
+
 ## How To Test Without An API Key
 
 Use the default `Mock / Demo` model preset.
